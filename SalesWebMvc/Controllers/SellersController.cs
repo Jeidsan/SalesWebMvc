@@ -127,12 +127,8 @@ namespace SalesWebMvc.Controllers
                 await _sellerService.RemoveAsync(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException ex)
-            {
-                return RedirectToAction(nameof(Error), new { message = ex.Message });
-            }
-            catch (DbConcurrencyException ex)
-            {
+            catch (IntegrityException ex)
+            {            
                 return RedirectToAction(nameof(Error), new { message = ex.Message });
             }
         }
