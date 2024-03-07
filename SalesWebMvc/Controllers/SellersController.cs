@@ -2,6 +2,8 @@
 using SalesWebMvc.Models;
 using SalesWebMvc.Models.ViewModel;
 using SalesWebMvc.Services;
+using SalesWebMvc.Services.Exceptions;
+using System.Data;
 
 namespace SalesWebMvc.Controllers
 {
@@ -50,6 +52,43 @@ namespace SalesWebMvc.Controllers
             return View(obj);
         }
 
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var obj = _sellerService.FindById(id.Value);
+
+            if (obj == null)
+                return NotFound();
+
+            var departments = _departmentService.FindAll();
+            var viewModel = new SellerFormViewModel() { Seller = obj, Departments = departments };
+
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditConfirmed(int id, Seller seller)
+        {
+            if (id != seller.Id)
+                return BadRequest();
+            try
+            {
+                _sellerService.Update(seller);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException ex)
+            {
+                return NotFound();
+            }
+        }
+
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -57,10 +96,10 @@ namespace SalesWebMvc.Controllers
 
             var obj = _sellerService.FindById(id.Value);
 
-            if(obj == null)
+            if (obj == null)
                 return NotFound();
 
-            return View(obj);               
+            return View(obj);
         }
 
         [HttpPost, ActionName("Delete")]
