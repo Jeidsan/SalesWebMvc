@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Pkcs;
 using SalesWebMvc.Services;
 
 namespace SalesWebMvc.Controllers
@@ -14,6 +15,8 @@ namespace SalesWebMvc.Controllers
 
         public IActionResult Index()
         {
+            ViewData["minDate"] = new DateTime(DateTime.Now.Year, 1, 1).ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = DateTime.Now.ToString("yyyy-MM-dd");
             return View();
         }
 

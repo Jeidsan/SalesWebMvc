@@ -1,6 +1,7 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
+    DateTime minDate = DateTime.Parse(ViewData["minDate"] as string);
+    DateTime maxDate = DateTime.Parse(ViewData["maxDate"] as string);
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,13 +14,13 @@
                 <div class="form-group">
                     <label for="minDate" class="col-lg-2 control-label">Min Date</label>
                     <div class="col-lg-10">
-                        <input type="date" name="minDate" class="form-control" />
+                        <input type="date" name="minDate" class="form-control" value=@ViewData["minDate"] />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="maxDate" class="col-lg-2 control-label">Max Date</label>
                     <div class="col-lg-10">
-                        <input type="date" name="maxDate" class="form-control" />
+                        <input type="date" name="maxDate" class="form-control" value=@ViewData["maxDate"] />
                     </div>
                 </div>
                 <div class="form-group">
@@ -40,13 +41,13 @@
                 <div class="form-group">
                     <label for="minDate" class="col-lg-2 control-label">Min Date</label>
                     <div class="col-lg-10">
-                        <input type="date" name="minDate" class="form-control" />
+                        <input type="date" name="minDate" class="form-control" value=@ViewData["minDate"] />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="maxDate" class="col-lg-2 control-label">Max Date</label>
                     <div class="col-lg-10">
-                        <input type="date" name="maxDate" class="form-control" />
+                        <input type="date" name="maxDate" class="form-control" value=@ViewData["maxDate"] />
                     </div>
                 </div>
                 <div class="form-group">
